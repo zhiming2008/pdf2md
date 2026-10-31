@@ -7,6 +7,11 @@ llama-*/
 *.parts/
 imgs/
 
+# 打包产物
+build/
+dist/
+*.exe
+
 # Python
 __pycache__/
 *.py[cod]

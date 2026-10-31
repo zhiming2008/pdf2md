@@ -54,7 +54,13 @@ DEFAULT_PROMPT = (
 )
 EXE_NAME = "llama-mtmd-cli.exe" if os.name == "nt" else "llama-mtmd-cli"
 CREATE_NO_WINDOW = 0x08000000 if os.name == "nt" else 0
-SCRIPT_DIR = Path(__file__).resolve().parent
+
+# 打包成 exe 之后 __file__ 指向 PyInstaller 的临时解压目录，
+# 得改用 exe 自身所在目录，否则模型和 llama.cpp 都找不到。
+if getattr(sys, "frozen", False):
+    SCRIPT_DIR = Path(sys.executable).resolve().parent
+else:
+    SCRIPT_DIR = Path(__file__).resolve().parent
 
 _print_lock = threading.Lock()
 

@@ -69,17 +69,33 @@ PowerShell 里第一行改成 `$env:HF_ENDPOINT = "https://hf-mirror.com"`。
 
 ## 安装
 
-其实没什么可装的，下载 `pdf2md.py` 就能用。文件放哪都行，但按下面的布局放可以完全不传参数：
+两种方式任选。
+
+### 直接下 exe（Windows，不用装 Python）
+
+release 页面里有打包好的 `pdf2md.exe`，45 MB，双击没用，得在命令行跑。跟模型、llama.cpp 摆在一起就行：
 
 ```
 pdf2md/
-├── pdf2md.py
+├── pdf2md.exe
 ├── models/
 │   ├── MiniCPM-OCR-1.0-Q8_0.gguf
 │   └── mmproj-MiniCPM-OCR-1.0-Q8_0.gguf
 └── llama-b12020-bin-win-vulkan-x64/
     └── llama-mtmd-cli.exe
 ```
+
+然后在那个目录下开终端：
+
+```bash
+pdf2md.exe 高等数学.pdf
+```
+
+exe 每次启动要自解压，比跑脚本慢两三秒，识别速度一样。杀毒软件可能会拦一下，加信任即可。
+
+### 用 Python 跑
+
+下载 `pdf2md.py`。文件放哪都行，但按同样的布局摆可以完全不传参数。
 
 脚本查找顺序：自己的目录 → 当前目录 → `PATH`。模型和 llama.cpp 放在别处的话，用 `-m` 和 `--bin` 指过去。
 
@@ -88,7 +104,8 @@ pdf2md/
 ## 快速开始
 
 ```bash
-python pdf2md.py 高等数学.pdf
+python pdf2md.py 高等数学.pdf     # 用 Python 跑
+pdf2md.exe 高等数学.pdf           # 用打包好的 exe
 ```
 
 输出到同目录同名 `.md`。
