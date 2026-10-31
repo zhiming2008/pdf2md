@@ -30,7 +30,9 @@ pip install numpy pillow
 
 <https://github.com/ggml-org/llama.cpp/releases>
 
-下载对应后端的压缩包解压。里面要有 **`llama-mtmd-cli.exe`**。
+下载对应后端的压缩包解压。NVIDIA 选 CUDA，Intel 和 AMD 选 Vulkan，什么显卡都没有就用 CPU 版。
+
+里面要有 **`llama-mtmd-cli.exe`**。
 
 旧版本的包里只有 `llama-cli.exe`，那个不接受图片输入，得换个新一点的版本（b5xxx 之后基本都有）。
 
@@ -224,7 +226,7 @@ $$\lim_{\Delta x \to 0} \frac{f(x_0 + \Delta x) - f(x_0)}{\Delta x}$$
 
 ## 性能
 
-RTX 显卡 + Vulkan + Q8_0，扫描版高等数学教材：
+Core Ultra 5 338H 自带的 Arc B370 核显（Vulkan 后端）+ Q8_0，扫描版高等数学教材：
 
 | 场景 | 耗时 |
 |---|---|
@@ -233,7 +235,7 @@ RTX 显卡 + Vulkan + Q8_0，扫描版高等数学教材：
 | 空白页（直接跳过） | 0.1 秒 |
 | 442 页全书 | 约 1.6 小时 |
 
-纯 CPU 跑慢一个数量级，不建议。
+核显跑出来的，不用独显。只有这一台机器的数据，显卡不同会有出入，纯 CPU 慢一个数量级。
 
 ## 常见问题
 
@@ -247,7 +249,7 @@ RTX 显卡 + Vulkan + Q8_0，扫描版高等数学教材：
 先用 `--keep-images` 导出 PNG 看看图本身是不是空白或者歪的。图正常但没输出，降 `--max-pixels 1.2e6` 再试。
 
 **显存不够**
-`--jobs 1`，降 `--max-pixels`，或者换成 Vulkan 后端。
+`--jobs 1`，降 `--max-pixels`。核显是跟系统内存共享的，内存紧张时一样会失败，先把后台吃内存的程序关掉。NVIDIA 用户也可以换 CUDA 后端，一般比 Vulkan 快一些。
 
 **中文乱码**
 程序内部统一 UTF-8。终端不是的话执行 `chcp 65001`。
@@ -260,7 +262,7 @@ RTX 显卡 + Vulkan + Q8_0，扫描版高等数学教材：
 
 ## License
 
-脚本本身没挂许可证，个人随便用。想正式一点就在仓库里加个 LICENSE 文件。
+[MIT](LICENSE)。
 
-模型和 llama.cpp 各有各的条款，商用前自己确认一下。
+仓库里只有 `pdf2md.py` 一个脚本，不含 llama.cpp 的二进制，也不含模型权重。那些都要自己下载，遵守各自的许可：llama.cpp 本身是 MIT；MiniCPM 系列有独立的使用协议，商用前扫一眼就行。
 
