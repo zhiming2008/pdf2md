@@ -1,0 +1,20 @@
+# 模型与推理后端不入库
+*.gguf
+models/
+llama-*/
+
+# 分页缓存与临时图片
+*.parts/
+imgs/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
