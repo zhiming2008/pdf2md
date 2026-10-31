@@ -32,7 +32,7 @@ pip install numpy pillow
 
 下载对应后端的压缩包解压。里面要有 **`llama-mtmd-cli.exe`**。
 
-旧版本的包里只有 `llama-cli.exe`，那个不接受图片输入，得换新一点的构建（b5xxx 之后基本都有）。
+旧版本的包里只有 `llama-cli.exe`，那个不接受图片输入，得换个新一点的版本（b5xxx 之后基本都有）。
 
 想自己编译：
 
